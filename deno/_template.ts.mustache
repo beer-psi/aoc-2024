@@ -1,0 +1,21 @@
+import { assertEquals } from "jsr:@std/assert";
+
+export function partOne(input: string) {
+    return null;
+}
+
+export function partTwo(input: string) {
+    return null;
+}
+
+Deno.test("test part 1", async () => {
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/{{ day }}.txt");
+
+    assertEquals(partOne(input), null);
+});
+
+Deno.test("test part 2", async () => {
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/{{ day }}.txt");
+
+    assertEquals(partTwo(input), null);
+});

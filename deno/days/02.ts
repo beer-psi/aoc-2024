@@ -15,7 +15,8 @@ function* windowGen<T>(input: Array<T>, size: number) {
 
 function checkReport(report: Array<number>) {
     const windows = Array.from(windowGen(report, 2));
-    const sorted = windows.every((w) => w[0] < w[1]) || windows.every((w) => w[0] > w[1]);
+    const sorted = windows.every((w) => w[0] < w[1]) ||
+        windows.every((w) => w[0] > w[1]);
 
     if (!sorted) {
         return false;
@@ -38,7 +39,10 @@ function checkReport(report: Array<number>) {
 export function partOne(input: string) {
     const reports = parseInput(input);
 
-    return reports.reduce((acc, _, i) => acc + (checkReport(reports[i]) ? 1 : 0), 0);
+    return reports.reduce(
+        (acc, _, i) => acc + (checkReport(reports[i]) ? 1 : 0),
+        0,
+    );
 }
 
 export function partTwo(input: string) {
@@ -59,13 +63,17 @@ export function partTwo(input: string) {
 }
 
 Deno.test("test part 1", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/02.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/02.txt",
+    );
 
     assertEquals(partOne(input), 2);
 });
 
 Deno.test("test part 2", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/02.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/02.txt",
+    );
 
     assertEquals(partTwo(input), 4);
 });

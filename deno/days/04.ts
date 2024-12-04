@@ -21,9 +21,10 @@ export function partOne(input: string) {
             if (grid[i][j] !== "X" && grid[i][j] !== "S") {
                 continue;
             }
-            
+
             if (i < grid.length - 3) {
-                const str = grid[i][j] + grid[i + 1][j] + grid[i + 2][j] + grid[i + 3][j];
+                const str = grid[i][j] + grid[i + 1][j] + grid[i + 2][j] +
+                    grid[i + 3][j];
 
                 if (str === "XMAS" || str === "SAMX") {
                     xmasCount++;
@@ -31,7 +32,8 @@ export function partOne(input: string) {
             }
 
             if (i < grid.length - 3 && j < grid[i].length - 3) {
-                const str = grid[i][j] + grid[i + 1][j + 1] + grid[i + 2][j + 2] + grid[i + 3][j + 3];
+                const str = grid[i][j] + grid[i + 1][j + 1] + grid[i + 2][j + 2] +
+                    grid[i + 3][j + 3];
 
                 if (str === "XMAS" || str === "SAMX") {
                     xmasCount++;
@@ -39,7 +41,8 @@ export function partOne(input: string) {
             }
 
             if (i < grid.length - 3 && j >= 3) {
-                const str = grid[i][j] + grid[i + 1][j - 1] + grid[i + 2][j - 2] + grid[i + 3][j - 3];
+                const str = grid[i][j] + grid[i + 1][j - 1] + grid[i + 2][j - 2] +
+                    grid[i + 3][j - 3];
 
                 if (str === "XMAS" || str === "SAMX") {
                     xmasCount++;
@@ -83,17 +86,20 @@ export function partTwo(input: string) {
     }
 
     return xmasCount;
-    
 }
 
 Deno.test("test part 1", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/04.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/04.txt",
+    );
 
     assertEquals(partOne(input), 18);
 });
 
 Deno.test("test part 2", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/04.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/04.txt",
+    );
 
     assertEquals(partTwo(input), 9);
 });

@@ -19,7 +19,9 @@ export function partTwo(input: string) {
     let enabled = true;
     let result = 0;
 
-    for (const match of input.matchAll(/(mul)\((\d+),(\d+)\)|(do)\(\)|(don't)\(\)/ug)) {
+    for (
+        const match of input.matchAll(/(mul)\((\d+),(\d+)\)|(do)\(\)|(don't)\(\)/ug)
+    ) {
         if (match[4] === "do") {
             enabled = true;
             continue;
@@ -42,13 +44,17 @@ export function partTwo(input: string) {
 }
 
 Deno.test("test part 1", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/03_1.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/03_1.txt",
+    );
 
     assertEquals(partOne(input), 161);
 });
 
 Deno.test("test part 2", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/03_2.txt");
+    const input = await Deno.readTextFile(
+        import.meta.dirname + "/../../data/examples/03_2.txt",
+    );
 
     assertEquals(partTwo(input), 48);
 });

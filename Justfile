@@ -4,6 +4,9 @@ download DAY:
         --input-file "$(printf 'data/inputs/%02d.txt' {{DAY}})" \
         --input-only --overwrite
 
+scaffold *ARGS:
+    deno run -A deno/main.ts scaffold {{ARGS}}
+
 solve DAY *FLAGS:
     deno run -A deno/main.ts solve --day "{{DAY}}" {{FLAGS}}
 
