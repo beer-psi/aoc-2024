@@ -22,6 +22,7 @@ export function partOne(input: string) {
                 continue;
             }
 
+            // vertical
             if (i < grid.length - 3) {
                 const str = grid[i][j] + grid[i + 1][j] + grid[i + 2][j] +
                     grid[i + 3][j];
@@ -31,6 +32,7 @@ export function partOne(input: string) {
                 }
             }
 
+            // backward slash
             if (i < grid.length - 3 && j < grid[i].length - 3) {
                 const str = grid[i][j] + grid[i + 1][j + 1] + grid[i + 2][j + 2] +
                     grid[i + 3][j + 3];
@@ -40,6 +42,7 @@ export function partOne(input: string) {
                 }
             }
 
+            // forward slash
             if (i < grid.length - 3 && j >= 3) {
                 const str = grid[i][j] + grid[i + 1][j - 1] + grid[i + 2][j - 2] +
                     grid[i + 3][j - 3];
@@ -89,17 +92,13 @@ export function partTwo(input: string) {
 }
 
 Deno.test("test part 1", async () => {
-    const input = await Deno.readTextFile(
-        import.meta.dirname + "/../../data/examples/04.txt",
-    );
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/04.txt");
 
     assertEquals(partOne(input), 18);
 });
 
 Deno.test("test part 2", async () => {
-    const input = await Deno.readTextFile(
-        import.meta.dirname + "/../../data/examples/04.txt",
-    );
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/04.txt");
 
     assertEquals(partTwo(input), 9);
 });
