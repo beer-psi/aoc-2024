@@ -13,9 +13,12 @@ export function partOne(input: string) {
 
     const targetWord = "XMAS" as const;
     const targetWordRev = targetWord.split("").reverse().join("");
-    let xmasCount = 0;
+
+    // evil regex hack to match horizontals, since it's faster than matching
+    // individual characters like in the loop below
+    let xmasCount = [...input.matchAll(new RegExp(`(?=(${targetWord}|${targetWordRev}))`, "gu"))].length;
+
     const directions: Array<[0 | 1 | -1, 0 | 1 | -1]> = [
-        [0, 1], // horizontal
         [1, 0], // vertical
         [1, 1], // forward slash
         [1, -1], // backward slash
@@ -40,15 +43,18 @@ export function partOne(input: string) {
                     continue;
                 }
 
-                let str = "";
+                let match = 1;
 
                 for (let idx = 0; idx < targetWord.length; idx++) {
-                    str += grid[i + dx * idx][j + dy * idx];
+                    const char = grid[i + dx * idx][j + dy * idx];
+
+                    if (char !== targetWord[idx] && char !== targetWordRev[idx]) {
+                        match = 0;
+                        break;
+                    }
                 }
 
-                if (str === targetWord || str === targetWordRev) {
-                    xmasCount++;
-                }
+                xmasCount += match;
             }
         }
     }
