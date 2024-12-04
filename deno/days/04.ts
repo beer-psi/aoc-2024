@@ -11,43 +11,42 @@ export function partOne(input: string) {
         grid.push(row.split(""));
     }
 
-    // preoptimization: use regex to match all horizontal XMAS/SAMXes
-    // which is somehow 1ms faster than just matching manually
-    // the lookahead is required to match overlapping XMAS/SAMXes
-    let xmasCount = [...input.matchAll(/(?=(SAMX|XMAS))/gu)].length;
+    const targetWord = "XMAS" as const;
+    const targetWordRev = targetWord.split("").reverse().join("");
+    let xmasCount = 0;
+    const directions: Array<[0 | 1 | -1, 0 | 1 | -1]> = [
+        [0, 1], // horizontal
+        [1, 0], // vertical
+        [1, 1], // forward slash
+        [1, -1], // backward slash
+    ];
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
-            if (grid[i][j] !== "X" && grid[i][j] !== "S") {
+            if (grid[i][j] !== targetWord[0] && grid[i][j] !== targetWordRev[0]) {
                 continue;
             }
 
-            // vertical
-            if (i < grid.length - 3) {
-                const str = grid[i][j] + grid[i + 1][j] + grid[i + 2][j] +
-                    grid[i + 3][j];
+            for (const direction of directions) {
+                const [dx, dy] = direction;
+                const dxCheck = dx === 0 ||
+                    (dx === 1 && i < grid.length - targetWord.length + 1) ||
+                    (dx === -1 && i >= targetWord.length - 1);
+                const dyCheck = dy === 0 ||
+                    (dy === 1 && j < grid[i].length - targetWord.length + 1) ||
+                    (dy === -1 && j >= targetWord.length - 1);
 
-                if (str === "XMAS" || str === "SAMX") {
-                    xmasCount++;
+                if (!dxCheck || !dyCheck) {
+                    continue;
                 }
-            }
 
-            // backward slash
-            if (i < grid.length - 3 && j < grid[i].length - 3) {
-                const str = grid[i][j] + grid[i + 1][j + 1] + grid[i + 2][j + 2] +
-                    grid[i + 3][j + 3];
+                let str = "";
 
-                if (str === "XMAS" || str === "SAMX") {
-                    xmasCount++;
+                for (let idx = 0; idx < targetWord.length; idx++) {
+                    str += grid[i + dx * idx][j + dy * idx];
                 }
-            }
 
-            // forward slash
-            if (i < grid.length - 3 && j >= 3) {
-                const str = grid[i][j] + grid[i + 1][j - 1] + grid[i + 2][j - 2] +
-                    grid[i + 3][j - 3];
-
-                if (str === "XMAS" || str === "SAMX") {
+                if (str === targetWord || str === targetWordRev) {
                     xmasCount++;
                 }
             }
