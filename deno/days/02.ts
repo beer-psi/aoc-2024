@@ -59,13 +59,13 @@ export function partTwo(input: string) {
 }
 
 Deno.test("test part 1", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../data/examples/02.txt");
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/02.txt");
 
     assertEquals(partOne(input), 2);
 });
 
 Deno.test("test part 2", async () => {
-    const input = await Deno.readTextFile(import.meta.dirname + "/../data/examples/02.txt");
+    const input = await Deno.readTextFile(import.meta.dirname + "/../../data/examples/02.txt");
 
     assertEquals(partTwo(input), 4);
 });
