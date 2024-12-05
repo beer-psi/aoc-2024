@@ -16,7 +16,8 @@ export function partOne(input: string) {
 
     // evil regex hack to match horizontals, since it's faster than matching
     // individual characters like in the loop below
-    let xmasCount = [...input.matchAll(new RegExp(`(?=(${targetWord}|${targetWordRev}))`, "gu"))].length;
+    let xmasCount =
+        [...input.matchAll(new RegExp(`(?=(${targetWord}|${targetWordRev}))`, "gu"))].length;
 
     const directions: Array<[0 | 1 | -1, 0 | 1 | -1]> = [
         [1, 0], // vertical
