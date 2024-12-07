@@ -22,19 +22,21 @@ function parseInput(input: string) {
 function isValidCalibrationP1(calibration: Calibration) {
     const { numbers, result } = calibration;
     const operatorCount = numbers.length - 1;
+    const numberOfCombinations = 1 << operatorCount;
 
     // abusing a bitmask to create operator combinations for us
     // high: multiply, low: addition
-    for (let i = 0; i < (1 << operatorCount); i++) {
+    for (let i = 0; i < numberOfCombinations; i++) {
         let currentResult = numbers[0];
 
         for (let j = 0; j < operatorCount; j++) {
             const currentOperator = i & (1 << j);
+            const currentNumber = numbers[j + 1];
 
             if (currentOperator) {
-                currentResult *= numbers[j + 1];
+                currentResult *= currentNumber;
             } else {
-                currentResult += numbers[j + 1];
+                currentResult += currentNumber;
             }
         }
 
@@ -68,8 +70,9 @@ export function partOne(input: string) {
 function isValidCalibrationP2(calibration: Calibration) {
     const { numbers, result } = calibration;
     const operatorCount = numbers.length - 1;
+    const numberOfCombinations = 3 ** operatorCount;
     
-    for (let i = 0; i < Math.pow(3, operatorCount); i++) {
+    for (let i = 0; i < numberOfCombinations; i++) {
         let currentResult = numbers[0];
         let multiplier = 1;
 
@@ -82,8 +85,8 @@ function isValidCalibrationP2(calibration: Calibration) {
             } else if (currentOperator === 1) {
                 currentResult *= currentNumber;
             } else {
-                const currentNumberDigits = Math.log10(currentNumber);
-                currentResult = currentResult * currentNumberDigits + currentNumber;
+                const currentNumberDigits = Math.log10(currentNumber) + 1 | 0;
+                currentResult = currentResult * (10 ** currentNumberDigits) + currentNumber;
             }
 
             multiplier *= 3;
